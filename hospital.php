@@ -177,8 +177,8 @@ if(!isset($_SESSION['admin_session'])){
                                                 <td class='align-middle'>".$password."</td>
                                                 <td class='align-middle'>".$status."</td>
                                                 
-                                            <td class='text-center'><button class='btn btn-success' data-toggle='modal' data-target='#idUpdate'><a href='hospitalupdate.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
-                                            <button class='btn btn-danger' data-toggle='modal' data-target='#idDelete><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
+                                            <td class='text-center'><button class='btn btn-success'><a href='hospitalupdate.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
+                                            <button class='btn btn-danger'><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
                                         </td>
                                     </tr>";
                     }

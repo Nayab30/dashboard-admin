@@ -16,7 +16,7 @@ include ('connection.php');
 
 
 $id =$_REQUEST['updateid'];
-$qry="select * from hospital_tbl where id= '$id'";
+$qry="select * from hospital_tbl where hospital_id= '$id'";
 
 $res=mysqli_query($conn,$qry);
 $row= mysqli_fetch_array($res);
@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
     
 
    
-    $qry ="update hospital_tbl set h_name='$name', h_phone='$phn', h_email='$email',h_address='$address',  h_password='$password', h_status='$status' where id= '$id'";
+    $qry ="update hospital_tbl set h_name='$name', h_phone='$phn', h_email='$email',h_address='$address',  h_password='$password', h_status='$status' where hospital_id= '$id'";
     
     $res = mysqli_query($conn,$qry);
 
@@ -179,34 +179,34 @@ mysqli_close($conn);
 <form action="hospitalupdate.php"  method ="POST" class="mx-5 ">
   <div class="mb-3 mt-3">
     
-    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row['hospital_id']  ?>" hidden>
+    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row[0]  ?>" hidden>
   </div>
   <div class="mb-3 mt-3">
     <label for="" class="form-label">Hospital Name:</label>
-    <input type="text" class="form-control bg-light"  name="name" value="<?php echo $row['h_name']  ?>">
+    <input type="text" class="form-control bg-light"  name="name" value="<?php echo $row[1]  ?>">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Phone_no:</label>
-    <input type="text" class="form-control"  name="phn" value="<?php echo $row['h_phone']  ?>">
+    <input type="text" class="form-control"  name="phn" value="<?php echo $row[2]  ?>">
   </div>
     <div class="mb-3">
     <label for="" class="form-label">Email:</label>
-    <input type="email" class="form-control"  name="email" value="<?php echo $row['h_email']  ?>">
+    <input type="email" class="form-control"  name="email" value="<?php echo $row[3]  ?>">
   </div>
 
    <div class="mb-3">
     <label for="" class="form-label">Address:</label>
-    <input type="text" class="form-control"  name="address" value="<?php echo $row['h_adress']  ?>">
+    <input type="text" class="form-control"  name="address" value="<?php echo $row[4]  ?>">
   </div>
   
     <div class="mb-3">
     <label for="" class="form-label">Password:</label>
-    <input type="text" class="form-control"  name="pw" value="<?php echo $row['h_password']  ?>">
+    <input type="text" class="form-control"  name="pw" value="<?php echo $row[5]  ?>">
   </div>
   
     <div class="mb-3">
     <label for="" class="form-label">Status:</label>
-    <input type="text" class="form-control"  name="status" value="<?php echo $row['h_status']  ?>">
+    <input type="text" class="form-control"  name="status" value="<?php echo $row[6]  ?>">
   </div>
   
   <button name="submit" type="submit" class="btn" style="background-color:var(--bg-base-color);color:var(--text-color);" >Update</button>
