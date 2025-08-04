@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['admin_session'])){
+    header("Location:Adminlogin.php");
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,54 +94,32 @@
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
                     <div class="avatar text-center">
+                        <a href="adminprofile.php">  
                         <img src="./assets/image/pic4.png" alt="" class="rounded-circle" />
-                        <p><strong>sara</strong></p>
-                        <span class="text-primary small"><strong>Parent</strong></span>
+
+                        </a>
+                        <?php
+                        include('connection.php');
+                        $qry ="SELECT * FROM admin_tbl ";
+
+                       $res = mysqli_query($conn,$qry);
+
+                     $row = mysqli_fetch_array($res);
+                      echo"<p><strong>".$row['name']."</strong></p>
+                       <span class='text-primary small'><strong>".$row['email']."</strong></span>";
+
+                        ?>
+                       
+                       
                     </div>
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
                     <div class="sidebar-menu-container">
-                        <ul class="sidebar-menu mt-4 mb-4">
-                            <li class="parent">
-                                <a href="/dashboard.html" class=""><i class="fa-solid fa-child mr-3"> </i>
-                                    <span class="none">Child Details</i></span>
-                                </a>
-                             
-                            </li>
-                            </li>
-                            <li class="parent">
-                                <a href="/vaccinedate.html" class=""><i class="fa-solid fa-syringe mr-3"></i>
-                                    <span class="none">Date of vaccination </span>
-                                </a>
-                            </li>
-                            <li class="parent">
-                                <a href="/vaccinereport.html"  class=""><i class="fa-solid fa-square-poll-horizontal mr-3"></i>
-                                    <span class="none">Report of vaccination<i class="pull-right align-bottom"></i></span>
-                                </a>
-                                
-                            </li>
-                            <li class="parent">
-                                <a href="/vaccinelist.html" class=""><i class="fa-solid fa-clipboard-list mr-3"></i>
-                                    <span class="none">List of vaccination <i class="pull-right align-bottom"></i></span>
-                                </a>
-                                
-                            </li>
-                        
-                            <li class="parent">
-                                <a href="/hospital.html" class=""><i class=" fa-solid fa-hotel mr-3"></i>
-                                    <span class="none">Hospitals<i class=" pull-right align-bottom"></i></span>
-                                </a>
-                                
-                            </li>
-                            <li class="parent">
-                                <a href="#" class=""><i class="fa-solid fa-right-from-bracket mr-3"></i>
-                                    <span class="none">Logout <i class=" pull-right align-bottom"></i></span>
-                                </a>
-                            </li>
-                                
-                            
-                        </ul>
+                      <?php
+                      include('navigation.php')
+
+                      ?>
                     </div>
                     <!--Sidebar Naigation Menu-->
                 </div>
@@ -140,26 +127,7 @@
             <!--Sidebar left-->
 
             <!--Content right-->
-            <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
-                <h5 class="mb-3" ><strong>vaccine date</strong></h5>
-                
-                
-            
-               
-
-                <!--Footer-->
-                <div class="row mt-5 mb-4 footer">
-                    <div class="col-sm-8">
-                        <span>&copy; All rights reserved 2025 designed by <a class="text-theme" href="#">VAXHEALTH</a></span>
-                    </div>
-                    <div class="col-sm-4 text-right">
-                        <a href="#" class="ml-2">Contact Us</a>
-                        <a href="#" class="ml-2">Support</a>
-                    </div>
-                </div>
-                <!--Footer-->
-
-            </div>
+          <h1>vaccine date</h1>
         </div>
 
         <!--Main Content-->

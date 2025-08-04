@@ -1,9 +1,16 @@
 <?php
+error_reporting(0);
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
 }
 
+$qry ="SELECT * FROM admin_tbl ";
+
+$res = mysqli_query($conn,$qry);
+
+$row = mysqli_fetch_array($res);
 
 ?>
 
@@ -32,6 +39,21 @@ if(!isset($_SESSION['admin_session'])){
    
     
     <title>Admin Panel</title>
+    <style>
+        :root{
+    --bg-base-color:#eaf5f4;
+    --text-color2:#eaf5f4;
+    --bg-second:#032944;
+    --text-color:#032944;
+
+
+}
+        .updatebtn{
+            margin-top:20px;
+            background-color:var(--bg-base-color);
+            color:var(--text-color);
+        }
+    </style>
     
 </head>
  <body>
@@ -98,19 +120,8 @@ if(!isset($_SESSION['admin_session'])){
                         <img src="./assets/image/pic4.png" alt="" class="rounded-circle" />
 
                         </a>
-                        <?php
-                        include('connection.php');
-                        $qry ="SELECT * FROM admin_tbl ";
-
-                       $res = mysqli_query($conn,$qry);
-
-                     $row = mysqli_fetch_array($res);
-                      echo"<p><strong>".$row['name']."</strong></p>
-                       <span class='text-primary small'><strong>".$row['email']."</strong></span>";
-
-                        ?>
-                       
-                       
+                        <p><strong>sara</strong></p>
+                        <span class="text-primary small"><strong>Admin</strong></span>
                     </div>
                     <!--Image Avatar-->
 
@@ -127,11 +138,32 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-            <?php
-         include('childdetail.php')
-
-          ?>
+    <div class="container admin-profile p-2">
+            <h1>Admin Profile</h1>
+            <div>
+    <form action="profileupdate.php" method="POST" autocomplete="off">
+        <div class="mb-3 mt-3">
+    
+    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row['id'] ?>" hidden > 
+  </div>
+        <div class="mb-3 mt-3">
+            <label for="name" class="form-label">Admin Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo $row['name']  ?>"  required>
         </div>
+        <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $row['email']  ?>" required>
+        </div>
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Password:</label>
+            <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd"  value="<?php echo $row['password']  ?>" required>
+        </div>
+        <button type="submit" class="btn updatebtn " name="updatebtn"><a href="<?php echo"adminprofile.php?updateid=".$id."" ?>">Update Profile</a></button>
+    </form>
+
+            </div>
+
+          </div>
 
         <!--Main Content-->
 

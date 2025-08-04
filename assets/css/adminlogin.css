@@ -1,0 +1,54 @@
+*{
+      margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+     scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 70vh;
+    background-image: linear-gradient(var(--bg-base-color),var(--bg-second)),url('/assets/image/c2.jpg');
+    /* background-image: url(assets/image/c2.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+:root{
+    --bg-base-color:#eaf5f4;
+    --text-color2:#eaf5f4;
+    --bg-second:#032944;
+    --text-color:#032944;
+
+
+}
+
+.form{
+
+    width: 50vw;
+    height: 50vh;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 30vh;
+    background-color: var(--bg-base-color);
+    color: var(--text-color);
+    font-size: 1.5vw;
+    
+}
+
+.a_loginbtn{
+    width: 100%;
+    font-size: 1.5vw;
+    margin-top: 10px;
+    background-color: var(--bg-second);
+    color: var(--text-color2);
+    transition: 0.5s ease-in-out;
+}
+
+.a_loginbtn:hover{
+     background-color: var(--bg-base-color);
+    color: var(--text-color);
+    border: 1px solid var(--bg-second);
+}

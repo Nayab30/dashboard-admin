@@ -391,38 +391,38 @@ a:hover{
 /*Main Content */
 
 
-/*========Products page CSS Rules============*/
+/*========child page CSS Rules============*/
 
-.product-list table,
-.product-list button,
-.product-list table tbody tr td p  {
+.child-list table,
+.child-list button,
+.child-list table tbody tr td p  {
     font-size: 15px;
 }
 
-.product-list table tbody tr td p  {
+.child-list table tbody tr td p  {
     font-weight: 400 !important;
 }
 
-.product-list table tbody tr td button i  {
+.child-list table tbody tr td button i  {
     font-size: 18px !important;
 }
 
-#productList_length,
-#productList_filter,
-#productList_info {
+#childList_length,
+#childList_filter,
+#childList_info {
     font-size: 15px;
     color: var(--text-color); 
 }
 
-#productList_length label,
-#productList_filter label,
-#productList_info {
+#childList_length label,
+#childList_filter label,
+#childList_info {
     font-weight: 500;
 }
 
-/*========Products page CSS Rules============*/
+/*========child page CSS Rules============*/
 
-/*=========Product detail page CSS Rules========*/
+/*=========child detail page CSS Rules========*/
 
 .slick-prev {
     left: 1px !important;
