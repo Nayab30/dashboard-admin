@@ -11,8 +11,8 @@
                             <table class="table table-bordered table-striped mt-0" id="childList">
                                 <thead>
                                     <tr>
-                                       
-                                         <th>Id</th>
+                                    
+                                        <th>Id</th>
                                                 <th scope="row">Name</th>
                                                 <th>Father name</th>
                                                 <th>Age</th>

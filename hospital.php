@@ -127,7 +127,136 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-           <h1> hospital</h1>
+           <!-- <h1> hospital</h1> -->
+           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
+                <h5 class="mb-3" ><strong>Hospital Details</strong></h5>
+                
+                
+            
+                <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
+                    <!--hospital  Listing-->
+                        
+                        <div class="table-responsive child-list">
+                            
+                            <table class="table table-bordered table-striped mt-0" id="childList">
+                                <thead>
+                                    <tr>
+                                    
+                                        <th> Hospital Id</th>
+                                                <th scope="row">Hospital Name</th>
+                                                <th>Phone no</th>
+                                                <th>Email</th>
+                                                <th>Address</th>
+                                                <th>Password</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                        include('connection.php');
+                        $qry ="SELECT * FROM hospital_tbl ";
+
+                        $res = mysqli_query($conn,$qry);
+
+                    if(mysqli_num_rows($res)>0){
+                        while($row=mysqli_fetch_array($res)){
+                            $id =$row['hospital_id'];
+                            $name=$row['h_name'];
+                            $phone =$row['h_phone'];
+                            $email =$row['h_email'];
+                            $address = $row['h_address'];
+                            $password = $row['h_password'];
+                            $status = $row['h_status'];                          
+                                            echo"<tr>
+                                                <td class='align-middle'>".$id."</td>
+                                                <td scope='row' class='align-middle'>".$name."</td>
+                                                <td >".$phone."</td>
+                                                <td class='align-middle'>".$email."</td>
+                                                <td class='align-middle'>".$address."</td>
+                                                <td class='align-middle'>".$password."</td>
+                                                <td class='align-middle'>".$status."</td>
+                                                
+                                            <td class='text-center'><button class='btn btn-success' data-toggle='modal' data-target='#idUpdate'><a href='update.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
+                                            <button class='btn btn-danger' data-toggle='modal' data-target='#idDelete><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
+                                        </td>
+                                    </tr>";
+                    }
+                    }else{
+
+                        echo"<td colspan='8' class='text-center'>Data not found</td>";
+                    }
+
+                                    ?>
+                            </table>
+                        </div>
+                    </div>
+                    <!--/hospital Listing-->
+                   
+
+                    <!--hospital Update Modal-->
+        <div class="modal fade" id="idUpdate" tabindex="-1" role="dialog"    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">id#1 details update</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  
+                    <div><h1 class="text-center m-4 text-success">Update student details </h1></div>
+<form action="hopital.php"  method ="POST" enctype="multipart/form-data" class="mx-5 ">
+  <div class="mb-3 mt-3">
+    
+    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row['hospital_id']  ?>" hidden>
+  </div>
+  <div class="mb-3 mt-3">
+    <label for="" class="form-label">Hospital Name:</label>
+    <input type="text" class="form-control bg-light"  name="name" value="<?php echo $row['h_name']  ?>">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Phone_no:</label>
+    <input type="text" class="form-control"  name="phn" value="<?php echo $row['h_phone']  ?>">
+  </div>
+    <div class="mb-3">
+    <label for="" class="form-label">Email:</label>
+    <input type="email" class="form-control"  name="email" value="<?php echo $row['h_email']  ?>">
+  </div>
+  
+     <div class="mb-3">
+    <label for="" class="form-label">Address:</label>
+    <input type="text" class="form-control"  name="address" value="<?php echo $row['h_address']  ?>">
+  </div>
+    <div class="mb-3">
+    <label for="" class="form-label">Password:</label>
+    <input type="text" class="form-control"  name="pw" value="<?php echo $row['h_password']  ?>">
+  </div>
+   <div class="mb-3">
+    <label for="" class="form-label">Status:</label>
+    <input type="text" class="form-control"  name="status" value="<?php echo $row['h_status']  ?>">
+  </div>
+
+  
+  <button name="submit" type="submit" class="btn btn-primary" >Update</button>
+  
+  <!-- <input type="submit" name="btn" class="btn btn-primary" value="Submit" > -->
+</form>
+                    
+                                     
+
+                                 
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--child Update Modal-->
+                </div>
+
         </div>
 
         <!--Main Content-->
