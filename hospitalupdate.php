@@ -7,6 +7,53 @@ if(!isset($_SESSION['admin_session'])){
 
 ?>
 
+<?php
+// error_reporting(0);
+// session_start();
+
+include ('connection.php');
+
+
+
+$id =$_REQUEST['updateid'];
+$qry="select * from hospital_tbl where id= '$id'";
+
+$res=mysqli_query($conn,$qry);
+$row= mysqli_fetch_array($res);
+
+
+if(isset($_POST['submit'])){
+     $id = $_POST['id'];
+    $name =$_POST['name'];
+    $phn =$_POST['phn'];
+    $email =$_POST['email'];
+    $address = $_POST['address'];
+    $password =$_POST['pw'];
+    $status = $_POST['status'];
+
+   ;
+    
+
+   
+    $qry ="update hospital_tbl set h_name='$name', h_phone='$phn', h_email='$email',h_address='$address',  h_password='$password', h_status='$status' where id= '$id'";
+    
+    $res = mysqli_query($conn,$qry);
+
+
+
+
+    if(!$res){
+    die("Error".mysqli_error($conn));
+}else{
+    header('location:hospital.php');
+}
+
+}
+
+
+
+mysqli_close($conn);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,76 +174,48 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-           <!-- <h1> hospital</h1> -->
-           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
-                <h5 class="mb-3" ><strong>Hospital Details</strong></h5>
-                
-                  <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="hospitaladd.php"  style="text-decoration:none;color:var(--text-color);">Add new</a></button>
-            
-                <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
-                    <!--hospital  Listing-->
-                        
-                        <div class="table-responsive child-list">
-                            
-                            <table class="table table-bordered table-striped mt-0" id="childList">
-                                <thead>
-                                    <tr>
-                                    
-                                        <th> Hospital Id</th>
-                                                <th scope="row">Hospital Name</th>
-                                                <th>Phone no</th>
-                                                <th>Email</th>
-                                                <th>Address</th>
-                                                <th>Password</th>
-                                                <th>Status</th>
-                                                <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                        include('connection.php');
-                        $qry ="SELECT * FROM hospital_tbl ";
-
-                        $res = mysqli_query($conn,$qry);
-
-                    if(mysqli_num_rows($res)>0){
-                        while($row=mysqli_fetch_array($res)){
-                            $id =$row['hospital_id'];
-                            $name=$row['h_name'];
-                            $phone =$row['h_phone'];
-                            $email =$row['h_email'];
-                            $address = $row['h_address'];
-                            $password = $row['h_password'];
-                            $status = $row['h_status'];                          
-                                            echo"<tr>
-                                                <td class='align-middle'>".$id."</td>
-                                                <td scope='row' class='align-middle'>".$name."</td>
-                                                <td >".$phone."</td>
-                                                <td class='align-middle'>".$email."</td>
-                                                <td class='align-middle'>".$address."</td>
-                                                <td class='align-middle'>".$password."</td>
-                                                <td class='align-middle'>".$status."</td>
-                                                
-                                            <td class='text-center'><button class='btn btn-success' data-toggle='modal' data-target='#idUpdate'><a href='hospitalupdate.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
-                                            <button class='btn btn-danger' data-toggle='modal' data-target='#idDelete><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
-                                        </td>
-                                    </tr>";
-                    }
-                    }else{
-
-                        echo"<td colspan='8' class='text-center'>Data not found</td>";
-                    }
-
-                                    ?>
-                            </table>
-                        </div>
-                    </div>
-                    <!--/hospital Listing-->
-                   
-
+         <div class="container">
+            <div><h1 class="text-center m-4 text-success" style="color:var(--text-color2);">Update Hospital details </h1></div>
+<form action="hospitalupdate.php"  method ="POST" class="mx-5 ">
+  <div class="mb-3 mt-3">
     
-            
-                </div>
+    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row['hospital_id']  ?>" hidden>
+  </div>
+  <div class="mb-3 mt-3">
+    <label for="" class="form-label">Hospital Name:</label>
+    <input type="text" class="form-control bg-light"  name="name" value="<?php echo $row['h_name']  ?>">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Phone_no:</label>
+    <input type="text" class="form-control"  name="phn" value="<?php echo $row['h_phone']  ?>">
+  </div>
+    <div class="mb-3">
+    <label for="" class="form-label">Email:</label>
+    <input type="email" class="form-control"  name="email" value="<?php echo $row['h_email']  ?>">
+  </div>
+
+   <div class="mb-3">
+    <label for="" class="form-label">Address:</label>
+    <input type="text" class="form-control"  name="address" value="<?php echo $row['h_adress']  ?>">
+  </div>
+  
+    <div class="mb-3">
+    <label for="" class="form-label">Password:</label>
+    <input type="text" class="form-control"  name="pw" value="<?php echo $row['h_password']  ?>">
+  </div>
+  
+    <div class="mb-3">
+    <label for="" class="form-label">Status:</label>
+    <input type="text" class="form-control"  name="status" value="<?php echo $row['h_status']  ?>">
+  </div>
+  
+  <button name="submit" type="submit" class="btn" style="background-color:var(--bg-base-color);color:var(--text-color);" >Update</button>
+  
+  <!-- <input type="submit" name="btn" class="btn btn-primary" value="Submit" > -->
+</form>
+
+
+         </div>
 
         </div>
 
