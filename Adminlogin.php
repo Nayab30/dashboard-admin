@@ -69,16 +69,17 @@ if(isset($_POST['btnlogin']))
 
     $res = mysqli_query($conn,$qry);
 
-     $row = mysqli_fetch_array($res);
-    if($email == $row['email'] && $password == $row['password'])
+    if(mysqli_num_rows($res)>0)
     {
      
-      $_SESSION['admin_session'] = $row['name'];
-     header("Location:dashboard.php"); 
-      echo"<script>
+      $row = mysqli_fetch_assoc($res);
+      $_SESSION['admin_session'] = $row['admin_id'];
+       echo"<script>
       alert('Login succussful');
-      
+      window.location.href='dashboard.php';
       </script>";
+     
+     
     }else{
         echo"<script>
           alert('Incorrect Email or Password');

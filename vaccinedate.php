@@ -95,7 +95,7 @@ if(!isset($_SESSION['admin_session'])){
                     <!--Image Avatar-->
                     <div class="avatar text-center">
                         <a href="adminprofile.php">  
-                        <img src="./assets/image/pic4.png" alt="" class="rounded-circle" />
+                        <img src="<?php echo $row['image'];  ?>" alt="" class="rounded-circle" />
 
                         </a>
                         <?php

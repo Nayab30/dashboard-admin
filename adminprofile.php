@@ -1,16 +1,16 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
-    header("Location:Adminlogin.php");
+    echo"<script>window.location.href='Adminlogin.php'</script>";
 }
 
-$qry ="SELECT * FROM admin_tbl ";
+$qry ="SELECT * FROM admin_tbl WHERE admin_id =$_SESSION[admin_session] ";
 
 $res = mysqli_query($conn,$qry);
 
-$row = mysqli_fetch_array($res);
+$row = mysqli_fetch_assoc($res);
 
 ?>
 
@@ -117,11 +117,11 @@ $row = mysqli_fetch_array($res);
                     <!--Image Avatar-->
                     <div class="avatar text-center">
                         <a href="adminprofile.php">  
-                        <img src="./assets/image/pic4.png" alt="" class="rounded-circle" />
+                        <img src="<?php echo $row['image'];?>" alt="" class="rounded-circle" />
 
                         </a>
-                        <p><strong>sara</strong></p>
-                        <span class="text-primary small"><strong>Admin</strong></span>
+                        <p><strong><?php echo $row['name']  ?></strong></p>
+                        <span class="text-primary small"><strong><?php echo $row['email']  ?></strong></span>
                     </div>
                     <!--Image Avatar-->
 
@@ -141,11 +141,11 @@ $row = mysqli_fetch_array($res);
     <div class="container admin-profile p-2">
             <h1>Admin Profile</h1>
             <div>
-    <form action="profileupdate.php" method="POST" autocomplete="off">
+    <form  method="POST">
         <div class="mb-3 mt-3">
     
-    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row['id'] ?>" hidden > 
-  </div>
+    <!-- <input type="text" class="form-control bg-light"  name="id" value=" hidden > 
+  </div> -->
         <div class="mb-3 mt-3">
             <label for="name" class="form-label">Admin Name:</label>
             <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo $row['name']  ?>"  required>
@@ -158,8 +158,64 @@ $row = mysqli_fetch_array($res);
             <label for="pwd" class="form-label">Password:</label>
             <input type="text" class="form-control" id="pwd" placeholder="Enter password" name="pswd"  value="<?php echo $row['password']  ?>" required>
         </div>
-        <button type="submit" class="btn updatebtn " name="updatebtn"><a href="<?php echo"adminprofile.php?updateid=".$id."" ?>">Update Profile</a></button>
+        <button type="submit" class="btn updatebtn " name="updatebtn">Update Profile</button>
     </form>
+
+    <?php
+        if(isset($_POST['updatebtn'])){
+
+            $name =$_POST['name'];
+            $email = $_POST['email'];
+            $password =$_POST['pswd'];
+
+            $qry="UPDATE admin_tbl SET name = '$name',email='$email',password = '$password' WHERE admin_id = $_SESSION[admin_session]";
+
+            $res = mysqli_query($conn,$qry);
+            if($res){
+                echo"<script>
+                        alert('Profile Updated Succussful');
+                        window.location.href='adminprofile.php';
+                </script>";
+            }
+        }
+
+    ?>
+
+            </div>
+            <div class="container">
+                <div class=image style="width:300px;">
+                    <img src="<?php echo $row['image'];  ?>"  alt="img" width="200">
+
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" ><br>
+                    <button type="submit" name="btnupload" class="btn updatebtn " >Upload image</button>
+
+                </form>
+                <?php
+
+                if(isset($_POST['btnupload'])){
+                    $imageName = $_FILES['image']['name'];
+                    $tempName = $_FILES['image']['tmp_name'];
+                    $path = "assets/image/$imageName";
+                    move_uploaded_file($tempName,$path);
+
+                    $qry = "UPDATE admin_tbl SET image='$path' WHERE admin_id = $_SESSION[admin_session]";
+
+                    $res =mysqli_query($conn,$qry);
+
+                    if($res){
+                        echo
+                        "<script>
+                        alert('Image Changed Succussfully');
+                        window.location.href='adminprofile.php';
+                        
+                        </script>";
+                    }
+                }
+
+                ?>
+
 
             </div>
 
