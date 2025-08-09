@@ -39,6 +39,7 @@ a:hover{
     --text-color2:#eaf5f4;
     --bg-second:#032944;
     --text-color:#032944;
+     --login-bg:#03294444;
 
 
 }
@@ -48,6 +49,7 @@ a:hover{
     --text-color2:#032944;
     --bg-second:#eaf5f4;
     --text-color:#eaf5f4;
+     --login-bg:#eaf5f457;
 }
 
 .dark-theme .logo{
@@ -374,7 +376,7 @@ a:hover{
 }
 
 .sidebar.shrink-sidebar .sidebar-menu li ul li {
-    border-bottom: 1px solid #2E2E3A;
+    border-bottom: 1px solid var(--bg-base-color);
 }
 
 .sidebar.shrink-sidebar .sidebar-menu li ul li:last-child {
@@ -422,71 +424,51 @@ a:hover{
 
 /*========child page CSS Rules============*/
 
-/*=========child detail page CSS Rules========*/
-
-.slick-prev {
-    left: 1px !important;
-}
-
-.slick-next {
-    right: 1px !important;
-}
-
-.product-slug {
-    font-size: 14px;
-    line-height: 26px !important;
-    color: var(--text-color);
-}
-
-.user-rating .br-theme-fontawesome-stars .br-widget a {
-    font: normal normal normal 15px/1 FontAwesome !important;
-    margin-right: 3px;
-}
-
-.user-rating .br-theme-fontawesome-stars .br-widget a.br-active:after {
-    color: #007b5e
-}
-
-.user-rating .br-theme-fontawesome-stars .br-widget a.br-selected:after {
-    color: #007b5e;
-}
-
-/*======Product detail page CSS Rules==========*/
-
-/*===========Orders Page CSS Rules==========*/
-
-.btn-order-bulk .nice-select:after {
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
-}
-
-.btn-order-bulk .nice-select .current {
-    color: #fff !important;
-}
-
-.order-qty {
-    width: 40px;
-    margin: 0;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.order-qty-head {
-    width: 40px !important;
-    padding: .75rem .30rem !important;
-}
-
-/*==========Orders Page CSS Rules============*/
 
 
-
-
-/*==============Error 404 rules ==================*/
 
 
 @media only screen and (max-width: 1074px) {
+.logo span.small {
+    color:var(--text-color)!important;
+    font-weight: 500;
+    padding-bottom: 4vh;
+    font-size: 30px;
+}
+
+
+.ri-moon-fill{
+    color: var(--text-color);
+     font-size: 5vw;
+     margin-left: 250px;
+     margin-bottom: -15px;
+
+     
+
+  
+}
+
+.ri-sun-line{
+    color: var(--text-color);
+     font-size: 5vw;
+      margin-left: 250px;
+     margin-bottom: -15px;
+     
+ 
+
+   
+}
+
+    .header {
+    /* height: 20vh; */
+    background:var(--bg-base-color);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--bg-base-color)!important;
+}
     .sidebar {
         max-width: 85px !important;
         min-width: 85px !important;
@@ -590,19 +572,54 @@ a:hover{
 
     .content {
         min-width: 90%;
+        /* height: 100vh;
+        background-color: var(--bg-second);
+     */
     }
 
     .content.content.expand-content {
         min-width: 100%;
     }
     
-
-    .login-box {
-        width: 75%;
-    }
 }
 
 @media only screen and (max-width: 906px) {
+.logo span.small {
+    color:var(--text-color)!important;
+    font-weight: 500;
+    padding-bottom: 4vh;
+    font-size: 30px;
+}
+
+
+.ri-moon-fill{
+    color: var(--text-color);
+    font-size: 5vw;
+    margin-left: 250px;
+    margin-bottom: -15px;
+
+}
+
+.ri-sun-line{
+    color: var(--text-color);
+    font-size: 5vw;
+    margin-left: 250px;
+    margin-bottom: -15px;
+
+}
+
+    .header {
+    /* height: 20vh; */
+    background:var(--bg-base-color);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--bg-base-color)!important;
+}
+
+
     .sidebar {
         max-width: 0px !important;
         min-width: 0px !important;
@@ -669,22 +686,7 @@ a:hover{
         margin-left: 0px !important;
     }
 
-    #card-chats, 
-    #card-all, 
-    .card-pro, 
-    .card-traffic, 
-    .card-analytics,
-    .card-calendar {
-        display: block !important;
-        min-width: 100%;
-        width: 100% !important;
-        box-sizing: border-box;
-        padding: 0px;
-    }
-
-    .login-box {
-        width: 85%;
-    }
+    
 
     .profile-img {
         top: 100px;
@@ -721,12 +723,14 @@ a:hover{
         display: block;
         min-width: 100%;
         width: 100%;
-        background: #0D47A1;
+        background-color: var(--bg-base-color);
+        /* color: var(--text-color); */
         padding: 10px 7px;
         margin: 0px;
     }
 
     .logo, .logo span.small {
+
         color: #fff !important;
         font-size: 23px;
     }
@@ -758,7 +762,42 @@ a:hover{
 }
 
 @media only screen and (max-width: 580px) {
-   
+   .logo span.small {
+    color:var(--text-color)!important;
+    font-weight: 500;
+    padding-bottom: 4vh;
+    font-size: 30px;
+}
+
+
+.ri-moon-fill{
+    color: var(--text-color);
+    font-size: 5vw;
+    margin-left: 250px;
+    margin-bottom: -15px;
+
+}
+
+.ri-sun-line{
+    color: var(--text-color);
+    font-size: 5vw;
+    margin-left: 250px;
+    margin-bottom: -15px;
+
+}
+
+    .header {
+    /* height: 20vh; */
+    background:var(--bg-base-color);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--bg-base-color)!important;
+}
+
+    
 
     .profile-img {
         top: 27%;
@@ -766,4 +805,17 @@ a:hover{
         transform: translate(-50%, -50%);
     }
 }
+
+
+@media (max-width: 500px) {
+  .dark-icon .ri-moon-fill,
+  .dark-icon .ri-sun-line {
+    color: var(--text-color);
+    font-size: 20px;
+    text-align: right;
+    margin-bottom: 15px;
+  }
+}
+
+
 

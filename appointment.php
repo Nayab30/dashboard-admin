@@ -1,4 +1,5 @@
 <?php
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
@@ -93,7 +94,7 @@ if(!isset($_SESSION['admin_session'])){
             <div class="col-sm-3 col-xs-6 sidebar pl-0">
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
-                      <div class="avatar text-center">
+                    <div class="avatar text-center">
                        
                         <?php
                         include('connection.php');
@@ -115,7 +116,6 @@ if(!isset($_SESSION['admin_session'])){
                        
                        
                     </div>
-                    
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -131,66 +131,73 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-           <!-- <h1> hospital</h1> -->
-           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
-                <h2 class="mb-3" ><strong>Hospital List</strong></h2>
+           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:100vh;">
+                <h2 class="mb-3" ><strong>List of Appointments</strong></h2>
                 
-                  <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="hospitaladd.php"  style="text-decoration:none;color:var(--text-color);">Add new Hospital</a></button>
+                
             
                 <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
-                    <!--hospital  Listing-->
+                    <!--child  Listing-->
                         
                         <div class="table-responsive child-list">
                             
-                            <table class="table table-bordered table-striped mt-0" id="hospitalList">
+                            <table class="table table-bordered table-striped mt-0" id="childList">
                                 <thead>
                                     <tr>
                                     
-                                        <th class="text-center"> Hospital Id</th>
-                                                <th class="text-center" scope="row">Hospital Name</th>
-                                                
-                                                <th class="text-center">Status</th>
+                                        <th class="text-center">Appointment Id</th>
+                                                <th class="text-center" scope="row">Child Name</th>
+                                                <th class="text-center">Hospital Name</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Time</th>
+                                                <th class="text-center">Vaccine Name</th>
+                                                <th class="text-center">Status</th>                                                                                               
                                                 <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                         include('connection.php');
-                        $qry ="SELECT * FROM hospital_tbl ";
+                      $qry ="SELECT child_tbl.c_name as cname, 
+              hospital_tbl.h_name as hname, 
+              vaccines_tbl.v_name as vname, 
+              appointment_tbl.* 
+       FROM appointment_tbl 
+       INNER JOIN child_tbl ON appointment_tbl.child_id = child_tbl.child_id 
+       INNER JOIN hospital_tbl ON appointment_tbl.hospital_id = hospital_tbl.hospital_id 
+       INNER JOIN vaccines_tbl ON appointment_tbl.v_id = vaccines_tbl.v_id";
+
 
                         $res = mysqli_query($conn,$qry);
 
                     if(mysqli_num_rows($res)>0){
                         while($row=mysqli_fetch_array($res)){
-                            $id =$row['hospital_id'];
-                            $name=$row['h_name'];
-                            $phone =$row['h_phone'];
-                            $email =$row['h_email'];
-                            $address = $row['h_address'];
-                            $password = $row['h_password'];
-                            $status = $row['h_status'];                          
+                            $id =$row['appoint_id'];
+                            $c_name=$row['cname'];
+                            $h_name =$row['hname'];
+                            $date=$row['date'];
+                            $time = $row['time'];
+                            $v_name = $row['vname'];
+                            $status = $row['app_status'];
+
+                          
                                             echo"<tr>
                                                 <td class='align-middle text-center'>".$id."</td>
-                                                <td scope='row' class='align-middle text-center'>".$name."</td>
-                                               
-                                                <td class='align-middle text-center'>".$status."</td>
-                                                
-                                            <td class='text-center'>
-                                           
-                                            <button class='btn btn-success mt-2 '><a style='color:white;' href='hospitalupdate.php?id=$row[hospital_id]' ><i class='fa-solid fa-pen-to-square'></i></a></button>&nbsp; &nbsp;
+                                                <td scope='row' class='align-middle text-center'>".$c_name."</td>
+                                                <td class='text-center' >".$h_name."</td>
+                                                 <td class='text-center' >".$date."</td> <td class='text-center' >".$time."</td> <td class='text-center' >".$v_name."</td>
+                                                  <td class='text-center' >".$status."</td>
+                                             
+                                            <td class='text-center'>";
 
-                                            <button class='btn btn-info mt-2 '><a style='color:white;' href='hospitalview.php?id=$row[hospital_id]' ><i class='fa-solid fa-eye'></i></a></button>&nbsp; &nbsp;
-                                            
-                                             <button class='btn btn-danger mt-2 '><a style='color:white;' href='hospitaldelete.php?id=$row[hospital_id]' ><i class='fa-solid fa-trash'></i></a></button>&nbsp; &nbsp;";
-
-                                            if($row['h_status']=="activate"){
-                                                echo"<button class='btn btn-danger mt-2'><a style='color:white;' href='hospitalactivate.php?id=$row[hospital_id]' >Deactivate</i></a></button>";
+                                              if($row['app_status']=="pending"){
+                                                echo"<button class='btn btn-success mt-2'><a style='color:white;' href='appoint-accept.php?id=$row[v_id]' >Approved</i></a></button>";
                                             }else{
-                                                  echo"<button class='btn btn-warning mt-2'><a style='color:black; padding-left:6px; padding-right:6px;'' href='hospitaldeactivate.php?id=$row[hospital_id]' >Activate</i></a></button>";
+                                                  echo"<button class='btn btn-warning mt-2'><a style='color:black; padding-left:6px; padding-right:6px;'' href='appoint-reject.php?id=$row[v_id]' >Available</i></a></button>";
                                             }
                                          
-                                        
-                                        "</td>
+                                         "
+                                        </td>
                                     </tr>";
                     }
                     }else{
@@ -202,13 +209,65 @@ if(!isset($_SESSION['admin_session'])){
                             </table>
                         </div>
                     </div>
-                    <!--/hospital Listing-->
+                    <!--/child Listing-->
                    
 
-    
-            
+                    <!--child Update Modal-->
+        <div class="modal fade" id="idUpdate" tabindex="-1" role="dialog"    aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="color:var(--text-color); background-color:var(--login-bg);">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
+                            <div class="modal-content" style="color:var(--text-color); background-color:var(--bg-base-color);">
+                                <div class="modal-header" style="color:var(--text-color); background-color:var(--bg-base-color);">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Child Details </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="color:var(--text-color); background-color:var(--bg-base-color);">
+                                    
+                        <?php
+                        include('connection.php');
+                        $qry ="SELECT * FROM child_tbl ";
+
+                        $res = mysqli_query($conn,$qry);
+
+                        $row=mysqli_fetch_assoc($res);
+                        
+                        
+                    ?>
+                                            
+            <div class="container">
+                <ul class="list-group" style="color:var(--text-color); background-color:var(--bg-base-color);">
+                    <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Id : <?php echo $row['child_id']  ?></li>
+
+                    <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Name : <?php echo $row['c_name']  ?></li>
+
+                    <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Father's Name : <?php echo $row['c_fathername']  ?></li>
+
+                    <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Age : <?php echo $row['c_age']  ?></li>
+
+                    <li class="list-group-item" style="color:var(--text-color); background-color:var(--bg-base-color);">Child Gender: <?php echo $row['c_gender']  ?></li>
+                    
+                </ul>
+            </div>
+                                            
+                                        
+
+                                 
+                                </div>
+                                <div class="modal-footer" style="color:var(--text-color); background-color:var(--bg-base-color);">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color:var(--text-color); background-color:var(--bg-base-color);">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--child Update Modal-->
                 </div>
 
+                <!--Footer-->
+                
+                <!--Footer-->
+
+            </div>
         </div>
 
         <!--Main Content-->

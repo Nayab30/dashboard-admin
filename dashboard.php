@@ -130,10 +130,25 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-            <?php
-         include('childdetail.php')
+             <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:100vh;">
+                <h2 class="mb-3" ><strong>Dashboard</strong></h2>
 
-          ?>
+                <div class="container">
+
+
+                </div>
+
+
+
+</div>
+
+
+
+            <!--  Content right -->
+           
+                <!--Footer-->
+
+            </div>
         </div>
 
         <!--Main Content-->

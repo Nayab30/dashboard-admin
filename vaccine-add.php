@@ -1,4 +1,5 @@
 <?php
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
@@ -115,7 +116,7 @@ if(!isset($_SESSION['admin_session'])){
                        
                        
                     </div>
-                    
+                  
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -131,83 +132,30 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-           <!-- <h1> hospital</h1> -->
-           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
-                <h2 class="mb-3" ><strong>Hospital List</strong></h2>
-                
-                  <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="hospitaladd.php"  style="text-decoration:none;color:var(--text-color);">Add new Hospital</a></button>
-            
-                <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
-                    <!--hospital  Listing-->
-                        
-                        <div class="table-responsive child-list">
-                            
-                            <table class="table table-bordered table-striped mt-0" id="hospitalList">
-                                <thead>
-                                    <tr>
-                                    
-                                        <th class="text-center"> Hospital Id</th>
-                                                <th class="text-center" scope="row">Hospital Name</th>
-                                                
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                        include('connection.php');
-                        $qry ="SELECT * FROM hospital_tbl ";
+          <div class="container">
+            <div><h1 class="text-center m-4 " style="color:var(--text-color2);">Add  New Vaccine </h1></div>
+<form action="vaccine-insert.php"  method ="POST" class="mx-5 ">
+  <div class="mb-3 mt-3">
+    <label for="" class="form-label">Vaccine Name:</label>
+    <input type="text" class="form-control bg-light"  name="name">
+  </div>
+  
+   <div class="mb-3">
+    <label for="" class="form-label">Status:</label>
+    <select name="status" class="btn m-2 ">
+      <option>Available</option>
+      <option>Unvailable</option>
 
-                        $res = mysqli_query($conn,$qry);
-
-                    if(mysqli_num_rows($res)>0){
-                        while($row=mysqli_fetch_array($res)){
-                            $id =$row['hospital_id'];
-                            $name=$row['h_name'];
-                            $phone =$row['h_phone'];
-                            $email =$row['h_email'];
-                            $address = $row['h_address'];
-                            $password = $row['h_password'];
-                            $status = $row['h_status'];                          
-                                            echo"<tr>
-                                                <td class='align-middle text-center'>".$id."</td>
-                                                <td scope='row' class='align-middle text-center'>".$name."</td>
-                                               
-                                                <td class='align-middle text-center'>".$status."</td>
-                                                
-                                            <td class='text-center'>
-                                           
-                                            <button class='btn btn-success mt-2 '><a style='color:white;' href='hospitalupdate.php?id=$row[hospital_id]' ><i class='fa-solid fa-pen-to-square'></i></a></button>&nbsp; &nbsp;
-
-                                            <button class='btn btn-info mt-2 '><a style='color:white;' href='hospitalview.php?id=$row[hospital_id]' ><i class='fa-solid fa-eye'></i></a></button>&nbsp; &nbsp;
-                                            
-                                             <button class='btn btn-danger mt-2 '><a style='color:white;' href='hospitaldelete.php?id=$row[hospital_id]' ><i class='fa-solid fa-trash'></i></a></button>&nbsp; &nbsp;";
-
-                                            if($row['h_status']=="activate"){
-                                                echo"<button class='btn btn-danger mt-2'><a style='color:white;' href='hospitalactivate.php?id=$row[hospital_id]' >Deactivate</i></a></button>";
-                                            }else{
-                                                  echo"<button class='btn btn-warning mt-2'><a style='color:black; padding-left:6px; padding-right:6px;'' href='hospitaldeactivate.php?id=$row[hospital_id]' >Activate</i></a></button>";
-                                            }
-                                         
-                                        
-                                        "</td>
-                                    </tr>";
-                    }
-                    }else{
-
-                        echo"<td colspan='8' class='text-center'>Data not found</td>";
-                    }
-
-                                    ?>
-                            </table>
-                        </div>
-                    </div>
-                    <!--/hospital Listing-->
-                   
-
+    </select>
     
-            
-                </div>
+  </div>
+  
+  <button name="submit" type="submit" class="btn "style="background-color:var(--bg-base-color);color:var(--text-color);">Submit</button>
+  
+  <!-- <input type="submit" name="btn" class="btn btn-primary" value="Submit" > -->
+</form>
+
+          </div>
 
         </div>
 

@@ -130,7 +130,17 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-          <h1>vaccine report</h1>
+          <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0" style="height:100vh;">
+                <h2 class="mb-3" ><strong>Vaccine report</strong></h2>
+
+                <div class="container">
+
+
+                </div>
+
+
+
+</div>
         </div>
 
         <!--Main Content-->

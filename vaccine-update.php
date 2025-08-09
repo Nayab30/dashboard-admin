@@ -1,9 +1,9 @@
 <?php
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
 }
-
 
 ?>
 
@@ -115,6 +115,7 @@ if(!isset($_SESSION['admin_session'])){
                        
                        
                     </div>
+                  
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -130,7 +131,76 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-          <h1>vaccine date</h1>
+          <div class="container">
+            <div><h1 class="text-center m-4 " style="color:var(--text-color2);">Update Vaccine  </h1></div>
+         <?php
+            
+$qry="SELECT * FROM vaccines_tbl  WHERE v_id = $_GET[id] ";
+$res= mysqli_query($conn,$qry);
+
+$row = mysqli_fetch_assoc($res);
+
+       ?>
+<form action=""  method ="POST" class="mx-5 ">
+  <div class="mb-3 mt-3">
+    <label for="" class="form-label">vaccine Name:</label>
+    <input type="text" class="form-control bg-light"  value="<?php echo $row['v_name']   ?>" name="name">
+  </div>
+ 
+  
+  
+  
+  <button name="updatebtn" type="submit" class="btn "style="background-color:var(--bg-base-color);color:var(--text-color);">Update</button>
+  
+  <!-- <input type="submit" name="btn" class="btn btn-primary" value="Submit" > -->
+</form>
+<?php
+// error_reporting(0);
+
+include ('connection.php');
+
+
+if(isset($_POST['updatebtn'])){
+    $name =$_POST['name'];
+    $phn =$_POST['phn'];
+    $email =$_POST['email'];
+    $address = $_POST['address'];
+    $password =$_POST['pw'];
+   
+
+
+
+$qry = "UPDATE vaccines_tbl SET v_name = '$name' WHERE v_id = $_GET[id]";
+
+
+
+
+$res = mysqli_query($conn,$qry);
+
+    if(!$res){
+    die("Error".mysqli_error($conn));
+}else{
+    // header('location:hospital.php');
+    echo"<script>
+    alert('Vaccine updated succussfully');
+    window.location.href='vaccinelist.php';
+    
+    </script>";
+}
+
+}
+
+
+
+
+
+mysqli_close($conn);
+
+
+?>
+
+          </div>
+
         </div>
 
         <!--Main Content-->
