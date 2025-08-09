@@ -93,11 +93,8 @@ if(!isset($_SESSION['admin_session'])){
             <div class="col-sm-3 col-xs-6 sidebar pl-0">
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
-                    <div class="avatar text-center">
-                        <a href="adminprofile.php">  
-                        <img src="<?php echo $row['image'];  ?>" alt="" class="rounded-circle" />
-
-                        </a>
+                      <div class="avatar text-center">
+                       
                         <?php
                         include('connection.php');
                         $qry ="SELECT * FROM admin_tbl ";
@@ -105,7 +102,13 @@ if(!isset($_SESSION['admin_session'])){
                        $res = mysqli_query($conn,$qry);
 
                      $row = mysqli_fetch_array($res);
-                      echo"<p><strong>".$row['name']."</strong></p>
+
+                      echo"
+                       <a href='adminprofile.php'>  
+                        <img src='".$row['image']."' alt='' class='rounded-circle' />
+
+                        </a>
+                        <p><strong>".$row['name']."</strong></p>
                        <span class='text-primary small'><strong>".$row['email']."</strong></span>";
 
                         ?>

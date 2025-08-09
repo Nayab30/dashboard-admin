@@ -1,4 +1,5 @@
 <?php
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
@@ -32,6 +33,17 @@ if(!isset($_SESSION['admin_session'])){
    
     
     <title>Admin Panel</title>
+
+    <style>
+        .list-group{
+          
+            color:var(--text-color2);
+        }
+        .list-group-item{
+            background-color:var(--bg-second);
+            font-size:18px;
+        }
+    </style>
     
 </head>
  <body>
@@ -115,6 +127,7 @@ if(!isset($_SESSION['admin_session'])){
                        
                        
                     </div>
+                    
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -130,7 +143,39 @@ if(!isset($_SESSION['admin_session'])){
             <!--Sidebar left-->
 
             <!--Content right-->
-          <h1>vaccine report</h1>
+           <!-- <h1> hospital</h1> -->
+           <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
+                <h3 class="mb-3" ><strong>Hospital Details</strong></h3>
+
+                <?php
+                  $id = (int) $_GET['id'];
+
+                $qry ="SELECT * FROM hospital_tbl WHERE hospital_id = $id";
+
+                $res= mysqli_query($conn,$qry);
+                $row = mysqli_fetch_assoc($res);
+
+                ?>
+                <div class="container">
+                    <ul class="list-group">
+  <li class="list-group-item">Hospital Id : <?php echo $row['hospital_id']  ?></li>
+  <li class="list-group-item">Hospital Name : <?php echo $row['h_name']  ?></li>
+  <li class="list-group-item">Contact No : <?php echo $row['h_phone']  ?></li>
+  <li class="list-group-item">Hospital Email : <?php echo $row['h_email']  ?></li>
+   <li class="list-group-item">Hospital Address : <?php echo $row['h_address']  ?></li>
+    <li class="list-group-item">Password : <?php echo $row['h_password']  ?></li>
+     <li class="list-group-item">Status : <?php echo $row['h_status']  ?></li>
+</ul>
+                </div>
+
+
+
+
+                
+                
+            
+             
+
         </div>
 
         <!--Main Content-->

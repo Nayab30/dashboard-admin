@@ -93,11 +93,8 @@ if(!isset($_SESSION['admin_session'])){
             <div class="col-sm-3 col-xs-6 sidebar pl-0">
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
-                    <div class="avatar text-center">
-                        <a href="adminprofile.php">  
-                        <img src="<?php echo $row['image'];  ?>" alt="" class="rounded-circle" />
-
-                        </a>
+                      <div class="avatar text-center">
+                       
                         <?php
                         include('connection.php');
                         $qry ="SELECT * FROM admin_tbl ";
@@ -105,13 +102,20 @@ if(!isset($_SESSION['admin_session'])){
                        $res = mysqli_query($conn,$qry);
 
                      $row = mysqli_fetch_array($res);
-                      echo"<p><strong>".$row['name']."</strong></p>
+
+                      echo"
+                       <a href='adminprofile.php'>  
+                        <img src='".$row['image']."' alt='' class='rounded-circle' />
+
+                        </a>
+                        <p><strong>".$row['name']."</strong></p>
                        <span class='text-primary small'><strong>".$row['email']."</strong></span>";
 
                         ?>
                        
                        
                     </div>
+                    
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -129,26 +133,23 @@ if(!isset($_SESSION['admin_session'])){
             <!--Content right-->
            <!-- <h1> hospital</h1> -->
            <div class="col-sm-9 col-xs-12 content pt-3 pl-0 m-0">
-                <h5 class="mb-3" ><strong>Hospital Details</strong></h5>
+                <h2 class="mb-3" ><strong>Hospital List</strong></h2>
                 
-                  <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="hospitaladd.php"  style="text-decoration:none;color:var(--text-color);">Add new</a></button>
+                  <button class="btn  btn-lg m-4" style="background-color:var(--bg-base-color);"><a href="hospitaladd.php"  style="text-decoration:none;color:var(--text-color);">Add new Hospital</a></button>
             
                 <div class="mt-4 mb-4 p-3  border shadow-sm lh-sm">
                     <!--hospital  Listing-->
                         
                         <div class="table-responsive child-list">
                             
-                            <table class="table table-bordered table-striped mt-0" id="childList">
+                            <table class="table table-bordered table-striped mt-0" id="hospitalList">
                                 <thead>
                                     <tr>
                                     
-                                        <th> Hospital Id</th>
-                                                <th scope="row">Hospital Name</th>
-                                                <th>Phone no</th>
-                                                <th>Email</th>
-                                                <th>Address</th>
-                                                <th>Password</th>
-                                                <th>Status</th>
+                                        <th class="text-center"> Hospital Id</th>
+                                                <th class="text-center" scope="row">Hospital Name</th>
+                                                
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -169,17 +170,27 @@ if(!isset($_SESSION['admin_session'])){
                             $password = $row['h_password'];
                             $status = $row['h_status'];                          
                                             echo"<tr>
-                                                <td class='align-middle'>".$id."</td>
-                                                <td scope='row' class='align-middle'>".$name."</td>
-                                                <td >".$phone."</td>
-                                                <td class='align-middle'>".$email."</td>
-                                                <td class='align-middle'>".$address."</td>
-                                                <td class='align-middle'>".$password."</td>
-                                                <td class='align-middle'>".$status."</td>
+                                                <td class='align-middle text-center'>".$id."</td>
+                                                <td scope='row' class='align-middle text-center'>".$name."</td>
+                                               
+                                                <td class='align-middle text-center'>".$status."</td>
                                                 
-                                            <td class='text-center'><button class='btn btn-success'><a href='hospitalupdate.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
-                                            <button class='btn btn-danger'><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
-                                        </td>
+                                            <td class='text-center'>
+                                           
+                                            <button class='btn btn-success '><a style='color:white;' href='hospitalupdate.php?id=$row[hospital_id]' ><i class='fa-solid fa-pen-to-square'></i></a></button>&nbsp; &nbsp;
+
+                                            <button class='btn btn-info '><a style='color:white;' href='hospitalview.php?id=$row[hospital_id]' ><i class='fa-solid fa-eye'></i></a></button>&nbsp; &nbsp;
+                                            
+                                             <button class='btn btn-danger '><a style='color:white;' href='hospitaldelete.php?id=$row[hospital_id]' ><i class='fa-solid fa-trash'></i></a></button>&nbsp; &nbsp;";
+
+                                            if($row['h_status']=="activate"){
+                                                echo"<button class='btn btn-danger'><a style='color:white;' href='hospitalactivate.php?id=$row[hospital_id]' >Deactivate</i></a></button>";
+                                            }else{
+                                                  echo"<button class='btn btn-warning'><a style='color:black; padding-left:6px; padding-right:6px;'' href='hospitaldeactivate.php?id=$row[hospital_id]' >Activate</i></a></button>";
+                                            }
+                                         
+                                        
+                                        "</td>
                                     </tr>";
                     }
                     }else{

@@ -1,59 +1,12 @@
 <?php
+include('connection.php');
 session_start();
 if(!isset($_SESSION['admin_session'])){
     header("Location:Adminlogin.php");
 }
 
-
 ?>
 
-<?php
-// error_reporting(0);
-// session_start();
-
-include ('connection.php');
-
-
-
-$id =$_REQUEST['updateid'];
-$qry="select * from hospital_tbl where hospital_id= '$id'";
-
-$res=mysqli_query($conn,$qry);
-$row= mysqli_fetch_array($res);
-
-
-if(isset($_POST['submit'])){
-     $id = $_POST['id'];
-    $name =$_POST['name'];
-    $phn =$_POST['phn'];
-    $email =$_POST['email'];
-    $address = $_POST['address'];
-    $password =$_POST['pw'];
-    $status = $_POST['status'];
-
-   ;
-    
-
-   
-    $qry ="update hospital_tbl set h_name='$name', h_phone='$phn', h_email='$email',h_address='$address',  h_password='$password', h_status='$status' where hospital_id= '$id'";
-    
-    $res = mysqli_query($conn,$qry);
-
-
-
-
-    if(!$res){
-    die("Error".mysqli_error($conn));
-}else{
-    header('location:hospital.php');
-}
-
-}
-
-
-
-mysqli_close($conn);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,11 +93,8 @@ mysqli_close($conn);
             <div class="col-sm-3 col-xs-6 sidebar pl-0">
                 <div class="inner-sidebar mr-3">
                     <!--Image Avatar-->
-                    <div class="avatar text-center">
-                        <a href="adminprofile.php">  
-                        <img src="<?php echo $row['image'];  ?>" alt="" class="rounded-circle" />
-
-                        </a>
+                      <div class="avatar text-center">
+                       
                         <?php
                         include('connection.php');
                         $qry ="SELECT * FROM admin_tbl ";
@@ -152,13 +102,20 @@ mysqli_close($conn);
                        $res = mysqli_query($conn,$qry);
 
                      $row = mysqli_fetch_array($res);
-                      echo"<p><strong>".$row['name']."</strong></p>
+
+                      echo"
+                       <a href='adminprofile.php'>  
+                        <img src='".$row['image']."' alt='' class='rounded-circle' />
+
+                        </a>
+                        <p><strong>".$row['name']."</strong></p>
                        <span class='text-primary small'><strong>".$row['email']."</strong></span>";
 
                         ?>
                        
                        
                     </div>
+                  
                     <!--Image Avatar-->
 
                     <!--Sidebar Navigation Menu-->
@@ -174,48 +131,90 @@ mysqli_close($conn);
             <!--Sidebar left-->
 
             <!--Content right-->
-         <div class="container">
-            <div><h1 class="text-center m-4 text-success" style="color:var(--text-color2);">Update Hospital details </h1></div>
-<form action="hospitalupdate.php"  method ="POST" class="mx-5 ">
-  <div class="mb-3 mt-3">
-    
-    <input type="text" class="form-control bg-light"  name="id" value="<?php echo $row[0]  ?>" hidden>
-  </div>
+          <div class="container">
+            <div><h1 class="text-center m-4 " style="color:var(--text-color2);">Update Hospital details </h1></div>
+         <?php
+            
+$qry="SELECT * FROM hospital_tbl  WHERE hospital_id = $_GET[id] ";
+$res= mysqli_query($conn,$qry);
+
+$row = mysqli_fetch_assoc($res);
+
+       ?>
+<form action=""  method ="POST" class="mx-5 ">
   <div class="mb-3 mt-3">
     <label for="" class="form-label">Hospital Name:</label>
-    <input type="text" class="form-control bg-light"  name="name" value="<?php echo $row[1]  ?>">
+    <input type="text" class="form-control bg-light"  value="<?php echo $row['h_name']   ?>" name="name">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Phone_no:</label>
-    <input type="text" class="form-control"  name="phn" value="<?php echo $row[2]  ?>">
+    <input type="text" class="form-control"  value="<?php echo $row['h_phone']   ?>" name="phn">
   </div>
     <div class="mb-3">
     <label for="" class="form-label">Email:</label>
-    <input type="email" class="form-control"  name="email" value="<?php echo $row[3]  ?>">
+    <input type="email" class="form-control" value="<?php echo $row['h_email']   ?>"  name="email">
   </div>
-
-   <div class="mb-3">
+  <div class="mb-3 mt-3">
     <label for="" class="form-label">Address:</label>
-    <input type="text" class="form-control"  name="address" value="<?php echo $row[4]  ?>">
+    <input type="text" class="form-control bg-light" value="<?php echo $row['h_address']   ?>"  name="address">
   </div>
-  
     <div class="mb-3">
     <label for="" class="form-label">Password:</label>
-    <input type="text" class="form-control"  name="pw" value="<?php echo $row[5]  ?>">
+    <input type="text" class="form-control" value="<?php echo $row['h_password']   ?>" name="pw">
   </div>
   
-    <div class="mb-3">
-    <label for="" class="form-label">Status:</label>
-    <input type="text" class="form-control"  name="status" value="<?php echo $row[6]  ?>">
-  </div>
   
-  <button name="submit" type="submit" class="btn" style="background-color:var(--bg-base-color);color:var(--text-color);" >Update</button>
+  
+  <button name="updatebtn" type="submit" class="btn "style="background-color:var(--bg-base-color);color:var(--text-color);">Update</button>
   
   <!-- <input type="submit" name="btn" class="btn btn-primary" value="Submit" > -->
 </form>
+<?php
+// error_reporting(0);
+
+include ('connection.php');
 
 
-         </div>
+if(isset($_POST['updatebtn'])){
+    $name =$_POST['name'];
+    $phn =$_POST['phn'];
+    $email =$_POST['email'];
+    $address = $_POST['address'];
+    $password =$_POST['pw'];
+   
+
+
+
+$qry = "UPDATE hospital_tbl SET h_name = '$name', h_phone ='$phn', h_email='$email',h_address='$address',h_password='$password' WHERE hospital_id = $_GET[id]";
+
+
+
+
+$res = mysqli_query($conn,$qry);
+
+    if(!$res){
+    die("Error".mysqli_error($conn));
+}else{
+    // header('location:hospital.php');
+    echo"<script>
+    alert('Hospital updated succussfully');
+    window.location.href='hospital.php';
+    
+    </script>";
+}
+
+}
+
+
+
+
+
+mysqli_close($conn);
+
+
+?>
+
+          </div>
 
         </div>
 

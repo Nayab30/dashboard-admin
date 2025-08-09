@@ -24,8 +24,12 @@ $res = mysqli_query($conn,$qry);
     if(!$res){
     die("Error".mysqli_error($conn));
 }else{
-    header('location:hospital.php');
-    // echo"inserted";
+    // header('location:hospital.php');
+    echo"<script>
+    alert('Hospital add succussfully');
+    window.location.href='hospital.php';
+    
+    </script>";
 }
 
 }

@@ -41,8 +41,8 @@
                                                 <td >".$fathername."</td>
                                                 <td class='align-middle'>".$age."</td>
                                                 <td class='align-middle'>".$gender."</td>
-                                            <td class='text-center'><button class='btn btn-success' data-toggle='modal' data-target='#idUpdate'><a href='update.php?updateid=".$id."' ><i class='fa fa-pencil'></i></a></button>
-                                            <button class='btn btn-danger' data-toggle='modal' data-target='#idDelete><a href='delete.php?deleteid=".$id."'><i class='fas fa-trash'></i></a></button>
+                                            <td class='text-center'><button class='btn btn-success' style='color:white;'data-toggle='modal' data-target='#idUpdate'><i class='fa fa-pencil'></i></button>
+                                            <button class='btn btn-danger' data-toggle='modal' style='color:white;' data-target='#idDelete><i class='fas fa-trash'></i></button>
                                         </td>
                                     </tr>";
                     }
